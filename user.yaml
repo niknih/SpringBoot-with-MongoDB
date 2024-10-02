@@ -29,7 +29,7 @@ kind: Service
 metadata:
   name: user-service
 spec:
-  type: LoadBalancer  # Exposes the service externally
+  type: NodePort  # Exposes the service externally
   ports:
     - port: 8081
       targetPort: 8081
