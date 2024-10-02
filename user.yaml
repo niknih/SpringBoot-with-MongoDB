@@ -33,5 +33,6 @@ spec:
   ports:
     - port: 8081
       targetPort: 8081
+      nodePort: 31964
   selector:
     app: user-service
