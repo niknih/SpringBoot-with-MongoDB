@@ -1,0 +1,16 @@
+# values.yaml
+
+mongo:
+  replicas: 1
+  image: mongo:latest
+
+productService:
+  replicas: 2
+  image: ramann123/product-service:latest
+  nodePort: 31399
+
+userService:
+  replicas: 2
+  image: ramann123/user-service:latest
+  nodePort: 31965
+

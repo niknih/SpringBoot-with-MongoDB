@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: {{ .Values.userService.replicas }}  # Use value from values.yaml
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: {{ .Values.userService.image }}  # Use image from values.yaml
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: SPRING_DATA_MONGODB_URI
+          value: mongodb://mongo:27017/userdb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  type: NodePort  # Exposes the service externally
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: {{ .Values.userService.nodePort }}  # Use nodePort from values.yaml
+  selector:
+    app: user-service
+
